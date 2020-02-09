@@ -4,15 +4,14 @@ import { useLayerHandles } from "./store";
 
 const getCornerHandleStyles = store => {
   return {
-    width: 8,
-    height: 8,
-    minWidth: 8,
-    minHeight: 8,
-    maxWidth: 8,
-    maxHeight: 8,
-    border: "1px solid blue",
-    position: "absolute",
-    borderRadius: store.handleBorderRadius
+    width: store.cornerHandleWidth,
+    height: store.cornerHandleHeight,
+    minWidth: store.cornerHandleWidth,
+    minHeight: store.cornerHandleHeight,
+    maxWidth: store.cornerHandleWidth,
+    maxHeight: store.cornerHandleHeight,
+    border: "1px solid black",
+    position: "absolute"
   };
 };
 
@@ -21,34 +20,36 @@ const getEdgeHandleStyles = (store, which) => {
     return {
       position: "absolute",
       height: store.layerBounds.height,
-      background: "blue",
-      width: 1
+      background: "black",
+      width: store.borderHandleThickness
     };
   }
 
   return {
     position: "absolute",
     width: store.layerBounds.width,
-    background: "blue",
-    height: 1
+    background: "black",
+    height: store.borderHandleThickness
   };
 };
 
 const getTopLeftHandleStyle = store => {
   return {
     ...getCornerHandleStyles(store),
-    top: store.layerBounds.top - store.handleOffsetY,
-    left: store.layerBounds.left - store.handleOffsetX
+    top: store.layerBounds.top - store.handleOffset,
+    left: store.layerBounds.left - store.handleOffset
   };
 };
 
 const getTopRightHandleStyle = store => {
-  const baseOffsetX = store.layerBounds.width - store.handleWidth;
-
   return {
     ...getCornerHandleStyles(store),
-    top: store.layerBounds.top - store.handleOffsetY,
-    left: store.layerBounds.left + baseOffsetX + store.handleOffsetX
+    top: store.layerBounds.top - store.handleOffset,
+    left:
+      store.layerBounds.left +
+      store.layerBounds.width +
+      store.handleOffset -
+      store.cornerHandleWidth
   };
 };
 
@@ -58,8 +59,16 @@ const getBottomRightHandleStyle = store => {
 
   return {
     ...getCornerHandleStyles(store),
-    top: store.layerBounds.top + baseOffsetY + store.handleOffsetY,
-    left: store.layerBounds.left + baseOffsetX + store.handleOffsetX
+    top:
+      store.layerBounds.top +
+      store.layerBounds.height -
+      store.cornerHandleHeight +
+      store.handleOffset,
+    left:
+      store.layerBounds.left +
+      store.layerBounds.width +
+      store.handleOffset -
+      store.cornerHandleWidth
   };
 };
 
@@ -68,15 +77,19 @@ const getBottomLeftHandleStyle = store => {
 
   return {
     ...getCornerHandleStyles(store),
-    top: store.layerBounds.top + baseOffsetY + store.handleOffsetY,
-    left: store.layerBounds.left - store.handleOffsetX
+    top:
+      store.layerBounds.top +
+      store.layerBounds.height +
+      store.handleOffset -
+      store.cornerHandleHeight,
+    left: store.layerBounds.left - store.handleOffset
   };
 };
 
 const getTopHandleStyle = store => {
   return {
     ...getEdgeHandleStyles(store, "y"),
-    top: store.layerBounds.top - store.handleOffsetY / 2,
+    top: store.layerBounds.top - store.handleOffset / 2,
     left: store.layerBounds.left
   };
 };
@@ -86,7 +99,7 @@ const getRightHandleStyle = store => {
     ...getEdgeHandleStyles(store, "x"),
     top: store.layerBounds.top,
     left:
-      store.layerBounds.left + store.layerBounds.width + store.handleOffsetX / 2
+      store.layerBounds.left + store.layerBounds.width + store.handleOffset / 2
   };
 };
 
@@ -94,9 +107,7 @@ const getBottomHandleStyle = store => {
   return {
     ...getEdgeHandleStyles(store, "y"),
     top:
-      store.layerBounds.top +
-      store.layerBounds.height +
-      store.handleOffsetY / 2,
+      store.layerBounds.top + store.layerBounds.height + store.handleOffset / 2,
     left: store.layerBounds.left
   };
 };
@@ -105,7 +116,7 @@ const getLeftHandleStyle = store => {
   return {
     ...getEdgeHandleStyles(store, "x"),
     top: store.layerBounds.top,
-    left: store.layerBounds.left - store.handleOffsetX / 2
+    left: store.layerBounds.left - store.handleOffset / 2
   };
 };
 
@@ -114,15 +125,47 @@ export const LayerHandles = props => {
 
   return (
     <Portal>
-      <div style={getTopLeftHandleStyle(store)} />
-      <div style={getTopRightHandleStyle(store)} />
-      <div style={getBottomRightHandleStyle(store)} />
-      <div style={getBottomLeftHandleStyle(store)} />
+      <div
+        ref={store.topLeftHandleRef}
+        className="_reactLayerHandle _topLeftReactLayerHandle"
+        style={getTopLeftHandleStyle(store)}
+      />
+      <div
+        ref={store.topRightHandleRef}
+        className="_reactLayerHandle _topRightReactLayerHandle"
+        style={getTopRightHandleStyle(store)}
+      />
+      <div
+        ref={store.bottomRightHandleRef}
+        className="_reactLayerHandle _bottomRightReactLayerHandle"
+        style={getBottomRightHandleStyle(store)}
+      />
+      <div
+        ref={store.bottomLeftHandleRef}
+        className="_reactLayerHandle _bottomLeftReactLayerHandle"
+        style={getBottomLeftHandleStyle(store)}
+      />
 
-      <div style={getTopHandleStyle(store)} />
-      <div style={getRightHandleStyle(store)} />
-      <div style={getBottomHandleStyle(store)} />
-      <div style={getLeftHandleStyle(store)} />
+      <div
+        ref={store.topHandleRef}
+        className="_reactLayerHandle _topReactLayerHandle"
+        style={getTopHandleStyle(store)}
+      />
+      <div
+        ref={store.rightHandleRef}
+        className="_reactLayerHandle _rightReactLayerHandle"
+        style={getRightHandleStyle(store)}
+      />
+      <div
+        ref={store.bottomHandleRef}
+        className="_reactLayerHandle _bottomReactLayerHandle"
+        style={getBottomHandleStyle(store)}
+      />
+      <div
+        ref={store.leftHandleRef}
+        className="_reactLayerHandle _leftReactLayerHandle"
+        style={getLeftHandleStyle(store)}
+      />
     </Portal>
   );
 };

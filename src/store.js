@@ -19,6 +19,14 @@ const getElementBounds = (dataAttribute, layerId) => {
 export const LayerHandlesProvider = props => {
   const [selectedLayerId, setSelectedLayerId] = React.useState("");
   const layerBounds = getElementBounds(props.dataAttribute, selectedLayerId);
+  const topHandleRef = React.useRef();
+  const rightHandleRef = React.useRef();
+  const bottomHandleRef = React.useRef();
+  const leftHandleRef = React.useRef();
+  const topRightHandleRef = React.useRef();
+  const topLeftHandleRef = React.useRef();
+  const bottomRightHandleRef = React.useRef();
+  const bottomLeftHandleRef = React.useRef();
 
   const isSelected = layerId => {
     return selectedLayerId === layerId;
@@ -29,6 +37,14 @@ export const LayerHandlesProvider = props => {
     setSelectedLayerId,
     layerBounds,
     isSelected,
+    topHandleRef,
+    rightHandleRef,
+    bottomHandleRef,
+    leftHandleRef,
+    topRightHandleRef,
+    topLeftHandleRef,
+    bottomRightHandleRef,
+    bottomLeftHandleRef,
     ...props
   };
 
@@ -44,11 +60,10 @@ export const LayerHandlesProvider = props => {
 
 LayerHandlesProvider.defaultProps = {
   dataAttribute: "data-layer-id",
-  handleBorderRadius: 0,
-  handleOffsetX: 8,
-  handleOffsetY: 8,
-  handleWidth: 8,
-  handleHeight: 8
+  handleOffset: 8,
+  cornerHandleWidth: 8,
+  cornerHandleHeight: 8,
+  borderHandleThickness: 1
 };
 
 export const useLayerHandles = () => {

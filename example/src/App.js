@@ -14,10 +14,11 @@ const TEXT_LAYER_STYLE = {
 const Text = props => {
   // subscribe to the store.
   const layers = useLayerHandles();
+  const isSelected = layers.isSelected(props.layerId);
 
   // toggle layerHandles when this component is clicked.
   const onClick = () => {
-    if (!layers.isSelected(props.layerId)) {
+    if (!isSelected) {
       layers.setSelectedLayerId(props.layerId);
     }
   };
@@ -33,11 +34,10 @@ export const App = () => {
   return (
     <LayerHandlesProvider
       dataAttribute="data-layer-id"
-      handleOffsetX={8}
-      handleOffsetY={8}
-      handleWidth={8}
-      handleHeight={8}
-      handleBorderRadius={12}
+      handleOffset={8}
+      cornerHandleWidth={8}
+      cornerHandleHeight={8}
+      borderHandleThickness={1}
     >
       <div className="App">
         <Text layerId="01234" />
