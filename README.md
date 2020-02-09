@@ -76,7 +76,7 @@ const Text = props => {
 
 #### dataAttribute
 
-**Type**: string  
+**Type**: `string`
 **Required**: false  
 **Default**: `'data-layer-id'`
 
@@ -84,7 +84,7 @@ Used to select elements from the DOM to create handles around.
 
 #### handleOffset
 
-**Type**: number  
+**Type**: `number`
 **Required**: false  
 **Default**: `8`
 
@@ -92,7 +92,7 @@ Pushes the handles away from the content they are related to. For example, with 
 
 #### cornerHandleWidth
 
-**Type**: number  
+**Type**: `number`
 **Required**: false  
 **Default**: `8`
 
@@ -100,7 +100,7 @@ Controls the width of the topLeft, topRight, bottomRight, and bottomLeft corner 
 
 #### cornerHandleHeight
 
-**Type**: number  
+**Type**: `number`
 **Required**: false  
 **Default**: `8`
 
@@ -108,11 +108,87 @@ Controls the height of the topLeft, topRight, bottomRight, and bottomLeft corner
 
 #### borderHandleThickness
 
-**Type**: number  
+**Type**: `number`
 **Required**: false  
 **Default**: `1`
 
 Controls the thickness of the top, right, bottom, and left handles.
+
+### useLayerHandles (hook)
+
+The `useLayerHandles` hook gives you access to the main store that powers `react-layer-handles`. The following descriptions are what values/methods you can access when using this hook.
+
+#### selectedLayerId
+
+**Type**: `string`
+
+The id of the currently selected layer. If there is no selected layer, `undefined`.
+
+#### setSelectedLayerId
+
+**Type**: `function(id: string): undefined`
+
+A method to set the currently selected layer id. Returns nothing.
+
+#### isSelected
+
+**Type**: `function(id: string): boolean`
+
+A method to check if a specific id is currently selected. Returns a `boolean`, true or false.
+
+#### layerBounds
+
+**Type**: `Object`
+
+The currently selected element's `getBoundingRectClient` values with some additional values as helpers. (`top`, `left`, `right`, `bottom`, `height`, `width`, etc.)
+
+#### topHandleRef
+
+**Type**: `ref`
+
+A React `ref` for the top handle. Can be used to add event listeners, etc.
+
+#### rightHandleRef
+
+**Type**: `ref`
+
+A React `ref` for the right handle. Can be used to add event listeners, etc.
+
+#### bottomHandleRef
+
+**Type**: `ref`
+
+A React `ref` for the bottom handle. Can be used to add event listeners, etc.
+
+#### leftHandleRef
+
+**Type**: `ref`
+
+A React `ref` for the left handle. Can be used to add event listeners, etc.
+
+#### topRightHandleRef
+
+**Type**: `ref`
+
+A React `ref` for the top right handle. Can be used to add event listeners, etc.
+
+#### topLeftHandleRef
+
+**Type**: `ref`
+
+A React `ref` for the top left handle. Can be used to add event listeners, etc.
+
+#### bottomRightHandleRef
+
+**Type**: `ref`
+
+A React `ref` for the bottom right handle. Can be used to add event listeners, etc.
+
+#### bottomLeftHandleRef
+
+**Type**: `ref`
+
+A React `ref` for the bottom left handle. Can be used to add event listeners, etc.
 
 ## Styling
 
