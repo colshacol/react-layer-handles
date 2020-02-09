@@ -1,6 +1,12 @@
-# react-layer-handles
+# react-layer-handles [WIP]
 
 ![Example GIF](/sample.gif)
+
+## Install
+
+```sh
+yarn add react-layer-handles
+```
 
 ## Usage
 
