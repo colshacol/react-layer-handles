@@ -114,6 +114,10 @@ Controls the height of the topLeft, topRight, bottomRight, and bottomLeft corner
 
 Controls the thickness of the top, right, bottom, and left handles.
 
+---
+
+## Values
+
 ### useLayerHandles (hook)
 
 The `useLayerHandles` hook gives you access to the main store that powers `react-layer-handles`. The following descriptions are what values/methods you can access when using this hook.
